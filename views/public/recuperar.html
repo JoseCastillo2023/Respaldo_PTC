@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Título del documento -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Dennis Gonzalez">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <main>
+        <h4 id="mainTitle">Recuperar Contraseña</h4>
+        <form class="row g-3 py-5" id="recoveryForm" action="../../api/helpers/recuperacion.php" method="POST">
+            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <label for="email" class="form-label text-center">Coloca tu correo electrónico:</label>
+                <input type="email" id="email" name="clienteEmail" class="form-control py-2" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark px-5"><i class="bi bi-send-fill"></i> Enviar</button>
+            </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-dark px-3" data-bs-toggle="modal" data-bs-target="#passwordModal">
+                    <i class="bi bi-shield-lock"></i> Colocar Código
+                </button>
+            </div>
+        </form>
+        <div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle">Cambiar Contraseña</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="passwordChangeForm" action="../../api/helpers/recuperacion.php" method="POST">
+                        <div class="modal-body row g-3">
+                            <div class="col-sm-12 col-md-6 offset-md-3">
+                                <label for="code" class="form-label">Código</label>
+                                <input id="code" type="password" name="code" class="form-control" required>
+                            </div>
+                            <div class="col-12 text-center">
+                                <span>CONTRASEÑA NUEVA</span>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="newPassword" class="form-label">Contraseña</label>
+                                <input id="newPassword" type="password" name="newPassword" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                                <input id="confirmPassword" type="password" name="confirmPassword" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-dark">Cancelar</button>
+                            <button type="submit" class="btn btn-dark">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio público -->
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/public/recuperacion.js"></script>
+</body>
+
+</html>

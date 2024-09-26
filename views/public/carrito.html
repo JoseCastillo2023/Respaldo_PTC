@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="author" content="Dennis Gonzalez">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <main>
+
+        <h4 id="mainTitle"></h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>IMAGEN</th>
+                    <th>PRODUCTO</th>
+                    <th>PRECIO (US$)</th>
+                    <th>CANTIDAD</th>
+                    <th>SUBTOTAL (US$)</th>
+                    <th class="text-center">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        <p class="text-end">TOTAL A PAGAR (US$) <b id="pago"></b></p>
+        <p class="text-end">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                <i class="bi bi-credit-card-fill"></i> Añadir tarjeta
+            </button>
+        </p>
+        <p class="text-end">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#targetModal">
+                <i class="bi bi-credit-card-fill"></i> Seleccionar tarjeta
+            </button>
+        </p>
+        <p class="text-end">
+            <a href="index.html" class="btn btn-dark">
+                <i class="bi bi-cart-fill"></i> Seguir comprando
+            </a>
+        </p>
+        <div class="modal fade" id="itemModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle">Cambiar cantidad</h1>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="bi bi-x-square-fill"></i></button>
+                    </div>
+                    <form id="itemForm">
+                        <div class="modal-body row">
+                            <input type="number" class="d-none" id="idDetalle" name="idDetalle">
+                            <div class="col-sm-12">
+                                <label for="cantidadProducto" class="form-label">Cantidad</label>
+                                <input id="cantidadProducto" type="number" name="cantidadProducto" min="1"
+                                    class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-dark">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para añadir tarjeta de pago -->
+        <div class="modal fade" id="paymentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="paymentModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="paymentModalTitle">Añadir tarjeta de pago</h1>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="bi bi-x-square-fill"></i></button>
+                    </div>
+                    <form id="paymentForm" onsubmit="handlePayment(event)">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="cardType" class="form-label">Tipo de tarjeta</label>
+                                <select id="cardType" name="cardType" class="form-select" required>
+                                    <option value="" disabled selected>Seleccionar tipo de tarjeta</option>
+                                    <option value="visa">Visa</option>
+                                    <option value="mastercard">MasterCard</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cardUsage" class="form-label">Tipo de uso</label>
+                                <select id="cardUsage" name="cardUsage" class="form-select" required>
+                                    <option value="" disabled selected>Seleccionar tipo de uso</option>
+                                    <option value="credit">Crédito</option>
+                                    <option value="debit">Débito</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Número de tarjeta</label>
+                                <input type="text" id="cardNumber" name="cardNumber" class="form-control"
+                                    placeholder="XXXX XXXX XXXX XXXX" required oninput="formatCardNumber(this)">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cardName" class="form-label">Nombre en la tarjeta</label>
+                                <input type="text" id="cardName" name="cardName" class="form-control"
+                                    placeholder="Nombre completo" required>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="expiryDate" class="form-label">Fecha de expiración</label>
+                                    <input type="text" id="expiryDate" name="expiryDate" class="form-control"
+                                        placeholder="MM/AA" required oninput="formatExpiryDate(this)">
+                                </div>
+                                <div class="col">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" class="form-control" placeholder="XXX"
+                                        required oninput="formatCVV(this)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-dark">Seleccionar tarjeta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para añadir tarjeta de pago -->
+        <div class="modal fade" id="targetModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="paymentModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="targetModalTitle">Añadir tarjeta de pago</h1>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="bi bi-x-square-fill"></i></button>
+                    </div>
+                    <form id="paymentForm" onsubmit="handlePayment(event)">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="cardType" class="form-label">Seleccionar Targeta</label>
+                                <select id="cardType" name="cardType" class="form-select" required>
+                                    <option value="" disabled selected>Seleccionar Targeta</option>
+                                    <option value="visa">2821 XXXX XXXX XXXX</option>
+                                    <option value="mastercard">7895 XXXX XXXX XXXX</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-dark">Añadir tarjeta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
+    <script type="text/javascript" src="../../controllers/public/carrito.js"></script>
+</body>
+
+</html>

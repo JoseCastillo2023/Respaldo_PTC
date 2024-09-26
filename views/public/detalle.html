@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Detalles del Producto</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Dennis Gonzalez">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+   
+</head>
+
+<body>
+    <main>
+        <h4 id="mainTitle"></h4>
+        <div class="card mb-3" id="detalle">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img id="imagenProducto" class="img-fluid rounded-start" alt="Imagen del producto">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" id="nombreProducto"></h5>
+                        <p class="card-text" id="descripcionProducto"></p>
+                        <div id="averageRatingContainer" class="py-3">
+                            <p class="d-inline">Calificación:</p>
+                            <div id="averageRatingStars" class="d-inline"></div>
+                            <span id="averageRatingValue" class="ms-2"></span>
+                        </div>
+                        <p class="card-text">Precio US$ <b class="text-success" id="precioProducto"></b></p>
+                        <p class="card-text">Existencias <b id="existenciasProducto"></b></p>
+
+                        <form class="row gx-3 gy-2 mx-auto" id="shoppingForm">
+
+                            <input type="number" class="d-none" id="idProducto" name="idProducto">
+
+                            <div class="col-12 mb-2">
+                                <label for="cantidadProducto" class="form-label">Cantidad</label>
+                                <input type="number" id="cantidadProducto" name="cantidadProducto" min="1"
+                                    class="form-control" placeholder="Ingrese cantidad" required>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end py-5">
+                                <button type="submit" class="btn btn-dark py-3 btn-lg">
+                                    <i class="bi bi-cart-plus-fill"></i> Comprar <i
+                                        class="bi bi-arrow-return-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Formulario para agregar comentarios -->
+        <div id="addCommentSection">
+            <h5>Agregar Comentario</h5>
+            <!-- Formulario para agregar un comentario -->
+            <form id="addCommentForm">
+                <input type="hidden" id="commentIdProducto" name="idProducto">
+                <div class="form-group mb-3">
+                    <label for="commentCalificacion" class="form-label">Calificación</label>
+                    <div id="ratingStars" class="d-inline-flex" style="font-size: 2rem; color: black;">
+                        <!-- Estrellas dinámicas generadas con JavaScript -->
+                    </div>
+                    <input type="hidden" id="commentCalificacion" name="calificacion" value="0">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="commentText" class="form-label">Comentario</label>
+                    <textarea id="commentText" name="comentario_producto" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="col-12 d-flex justify-content-end"><button type="submit" class="btn btn-dark py-3 btn-lg">Agregar Comentario</button></div>
+            </form>
+
+        </div>
+        <!-- Sección de Comentarios -->
+        <div class="container mt-4">
+            <h5>Comentarios del Producto</h5>
+            <div id="commentsContainer"></div>
+        </div>
+    </main>
+
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
+    <script type="text/javascript" src="../../controllers/public/detalle.js"></script>
+</body>
+
+</html>
