@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS PanaderiaHPTC;
-CREATE DATABASE PanaderiaHPTC;
-USE PanaderiaHPTC;
+DROP DATABASE IF EXISTS PanaderiaHPTC2;
+CREATE DATABASE PanaderiaHPTC2;
+USE PanaderiaHPTC2;
 
 CREATE TABLE tb_administradores (
  id_admin INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -26,8 +26,6 @@ CREATE TABLE tb_clientes (
   codigo_recuperacion VARCHAR(6) NOT NULL,
   fecha_expiracion_codigo DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
 
 CREATE TABLE tb_categorias (
   id_categoria INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
